@@ -2,7 +2,10 @@
 
 ## TODO
 
-* [ ] Develop api to pull NSF data to local database (sqlite)
+* [x] Develop script to pull NSF data to local database (sqlite)
+* [ ] Fix bash to create tar file
+* [x] Model data in sql
+* [x] nsf_id, title, abstract, year, pi, agency
 * [ ] Preprocess grant text for clustering analysis
 * [ ] Develop clustering analysis
 * [ ] Visualize clusters
