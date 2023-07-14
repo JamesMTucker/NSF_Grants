@@ -11,7 +11,6 @@ else
     exit 1
 fi
 
-
 # arg 2: end date
 if [ ! -z "$2" ]; then
     end_date=$2
@@ -20,6 +19,7 @@ else
     exit 1
 fi
 
+# print fields
 if [ ! -z "$3" ]; then
     fields=$3
     # check if the fields are comma separated
