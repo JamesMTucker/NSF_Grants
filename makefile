@@ -7,10 +7,10 @@ pull:
 
 structure:
 	@echo "Structuring data ..."
-	python ./scripts/structure_data.py
+	# python ./scripts/structure_data.py
 
 preprocess:
 	@echo "Preprocessing data ..."
-	python ./scripts/preprocess_data.py
+	# python ./scripts/preprocess_data.py
 
 

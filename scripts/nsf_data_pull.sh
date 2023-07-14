@@ -1,7 +1,6 @@
 #!/bin/bash
 
-# Set initial offset
-offset=1
+# Check the arguments
 
 # arg 1: begin date
 if [ ! -z "$1" ]; then
@@ -19,7 +18,7 @@ else
     exit 1
 fi
 
-# print fields
+# arg 3: fields
 if [ ! -z "$3" ]; then
     fields=$3
     # check if the fields are comma separated
@@ -32,40 +31,39 @@ else
     exit 1
 fi
 
+# Create data directory
+if [ ! -d "data/nsf_grants" ]; then
+    mkdir -p data/nsf_grants
+fi
 
-# Set base URL
-base_url="http://api.nsf.gov/services/v1/awards.json?dateStart=${begin_date}&dateEnd=${end_date}&rpp=25&printFields=${fields}"
+# Export variables for GNU Parallel
+export begin_date
+export end_date
+export fields
 
-while true; do
-    # Build URL
+# Define a function that will be run in parallel
+process_url() {
+    offset=$1
+    base_url="http://api.nsf.gov/services/v1/awards.json?dateStart=${begin_date}&dateEnd=${end_date}&rpp=25&printFields=${fields}"
     url="${base_url}&offset=${offset}"
-
-    # create data directory
-    if [ ! -d "data" ]; then
-        mkdir data
-    fi
-
-    # Fetch data
     response=$(GET "$url")
 
-    # validate response is 200
     if [ $? -ne 0 ]; then
         echo "Error fetching data at ${offset}"
-        exit 1
+        return 1
     fi
 
-    # Check if we got less than 25 results
     num_results=$(echo "$response" | jq '.response.award | length')
+    echo "$response" | iconv -f utf-8 -t utf-8 > "./data/nsf_grants/nsf_${offset}.json"
 
     if (( num_results < 25 )); then
-        echo "$response" | iconv -f utf-8 -t utf-8 > "./data/nsf_year_${offset}.json"
         echo "Fetched $num_results records in $offset"
-        exit 0
+        return 0
     else
-        echo "$response" | iconv -f utf-8 -t utf-8 > "./data/nsf_year_${offset}.json"
         echo "Fetched 25 records in $offset"
     fi
+}
+export -f process_url
 
-    # Increment offset
-    offset=$((offset + 25))
-done
+# Use GNU Parallel to run the function in parallel
+seq 1 25 500000 | parallel process_url
