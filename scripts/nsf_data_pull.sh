@@ -66,4 +66,4 @@ process_url() {
 export -f process_url
 
 # Use GNU Parallel to run the function in parallel
-seq 1 25 500000 | parallel process_url
+seq 1 25 400000 | parallel process_url
