@@ -32,6 +32,7 @@ class NSFDb:
                 CREATE TABLE IF NOT EXISTS {self.nsf_id} (
                     idx INTEGER PRIMARY KEY AUTOINCREMENT,
                     id TEXT,
+                    date TEXT,
                     dateStart TEXT,
                     dateEnd TEXT,
                     is_duplicate INTEGER
@@ -69,7 +70,7 @@ class NSFDb:
                         ON DELETE CASCADE
                 );
                 
-                CREATE INDEX IF NOT EXISTS idx_{self.nsf_id}_id ON {self.nsf_id}(id);
+                CREATE INDEX IF NOT EXISTS idx_{self.nsf_id}_id ON {self.nsf_id}(id, date, dateStart, dateEnd);
                 CREATE INDEX IF NOT EXISTS idx_{self.title}_id ON {self.title}(id, title);
                 CREATE INDEX IF NOT EXISTS idx_{self.abstract}_id ON {self.abstract}(id, abstract);
                 CREATE INDEX IF NOT EXISTS idx_{self.pi}_id ON {self.pi}(id, first_name, last_name, email);
