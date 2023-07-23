@@ -8,10 +8,6 @@ delete:
 	@echo "Deleting database ..."
 	rm -f ./data/nsf.db
 
-create_env:
-	@echo "Creating environment ..."
-	conda create -n $(ENV_NAME) python=3.11
-
 pull:
 	@echo "Pulling grants from NSF api ..."
 	# bash ./scripts/nsf_data_pull.sh "01/01/1970" "12/31/2030" "id,agency,date,startDate,expDate,pdPIName,poName,abstractText,title,publicationResearch,publicationConference,piFirstName,piMiddleInitial,piLastName,piEmail"
