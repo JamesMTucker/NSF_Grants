@@ -1,4 +1,4 @@
-all: delete pull create_db populate_db preprocess
+all: delete pull create_db populate_db
 .PHONY: all
 
 ENV_NAME=nsf
@@ -10,15 +10,11 @@ delete:
 
 pull:
 	@echo "Pulling grants from NSF api ..."
-	# bash ./scripts/nsf_data_pull.sh "01/01/1970" "12/31/2030" "id,agency,date,startDate,expDate,pdPIName,poName,abstractText,title,publicationResearch,publicationConference,piFirstName,piMiddleInitial,piLastName,piEmail"
+	bash ./scripts/nsf_data_pull.sh "01/01/1970" "12/31/2030" "id,agency,date,startDate,expDate,pdPIName,poName,abstractText,title,publicationResearch,publicationConference,piFirstName,piMiddleInitial,piLastName,piEmail"
 
 create_db:
 	@echo "Creating database ..."
 	$(PYTHON) ./scripts/create_db.py
-
-preprocess:
-	@echo "Preprocessing data ..."
-	# $(PYTHON) ./scripts/preprocess.py
 
 populate_db:
 	@echo "Populating the database ..."
