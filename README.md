@@ -9,9 +9,10 @@ To run the code in a Docker container, you will need to run `setup.sh` with the 
 ## NSF API
 
 The default method extracts grant data for the for the following parameters:
-    * startDate = 01/01/1970
-    * expDate = 12/31/2023
-    * Print fields: id,agency,date,startDate,expDate,pdPIName,poName,abstractText,title,publicationResearch,publicationConference,piFirstName,piMiddleInitial,piLastName,piEmail
+
+  * startDate = 01/01/1970
+  * expDate = 12/31/2023
+  * Print fields: `id`, `agency`, `date`, `startDate`, `expDate`, `pdPIName`, `poName`, `abstractText`, `title`, `publicationResearch`, `publicationConference`, `piFirstName`, `piMiddleInitial`, `piLastName`, `piEmail`
   
 Change these parameters in the `Makefile` to extract different data.
 
