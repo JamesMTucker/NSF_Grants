@@ -25,7 +25,7 @@ class NSFDb:
     def __post_init__(self):
         """Create database with defined tables"""
         
-        def _create_id_tables(cursor):
+        def _create_id_tables():
             """Create the tables"""
             logger.info('Creating tables')
             self.cursor.executescript(f"""
